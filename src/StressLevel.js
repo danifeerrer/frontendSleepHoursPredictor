@@ -5,6 +5,7 @@ function DataSender() {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
   const [input3, setInput3] = useState('');
+  const [responseData, setResponseData] = useState(null);
 
   const handleInputChange = (event, setInput) => {
     setInput(event.target.value);
@@ -14,11 +15,12 @@ function DataSender() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/py', {
+      const response = await axios.post('http://18.216.191.240:5000/api/py', {
         input1,
         input2,
         input3,
       });
+      setResponseData(response.data);
       console.log('Response from the backend:', response.data);
     } catch (error) {
       console.error('Error:', error);
@@ -27,28 +29,43 @@ function DataSender() {
     setInput1('');
     setInput2('');
     setInput3('');
+    
+
   };
 
   return (
+    <div>
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={input1}
-        onChange={(event) => handleInputChange(event, setInput1)}
-      />
-      <input
-        type="text"
-        value={input2}
-        onChange={(event) => handleInputChange(event, setInput2)}
-      />
-      <input
-        type="text"
-        value={input3}
-        onChange={(event) => handleInputChange(event, setInput3)}
-      />
-      <button type="submit">Submit</button>
+      <div className="form-group">
+          <input
+            type="text"
+            value={input1}
+            onChange={(event) => handleInputChange(event, setInput1)}
+            placeholder="Stress Level"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            value={input2}
+            onChange={(event) => handleInputChange(event, setInput2)}
+            placeholder="Physical Level"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            value={input3}
+            onChange={(event) => handleInputChange(event, setInput3)}
+            placeholder="Quality of Sleep"
+          />
+        </div>
+      <button type="submit" className="btn btn-primary animate__animated animate__fadeIn">Submit</button>
     </form>
+    {responseData && <p>Response from server: {responseData}</p>} 
+  </div>
   );
+
 }
 
 export default DataSender;

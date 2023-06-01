@@ -13,6 +13,12 @@
   }
 }
 
+.beautiful-heading {
+  color: #f00; /* Set the desired text color */
+  font-size: 24px; /* Set the desired font size */
+  /* Add any additional styles to make it beautiful */
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
